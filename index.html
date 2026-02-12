@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In My Lover Era 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    background: linear-gradient(-45deg, #ff9ecf, #ffd6ec, #cdb4ff, #bde0fe);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 25px;
+    width: 350px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.6);
+    transition: opacity 1s ease;
+}
+
+h1 {
+    font-size: 26px;
+    background: linear-gradient(to right, #ff4da6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+img {
+    width: 200px;
+    border-radius: 15px;
+    margin: 15px 0;
+}
+
+.buttons {
+    margin-top: 20px;
+    position: relative;
+    height: 100px;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(255,182,193,0.8);
+}
+
+#yesBtn {
+    background: linear-gradient(to right, #ff4da6, #a855f7);
+    color: white;
+}
+
+#noBtn {
+    background: #eee;
+    position: absolute;
+    left: 180px;
+}
+
+.hidden {
+    display: none;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-800px); opacity: 0; }
+}
+
+/* FOREVER SCREEN */
+#foreverScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #ff9ecf, #a855f7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease;
+}
+
+#foreverScreen h1 {
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 0 20px rgba(255,255,255,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" autoplay loop>
+    <source src="lover.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="mainBox">
+    <div class="subtitle">✨ In My Lover Era ✨</div>
+    <h1>My baby, will you be my Valentine? 💕</h1>
+
+    <img id="mainGif"
+    src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😢</button>
+    </div>
+</div>
+
+<div class="container hidden" id="successBox">
+    <h1>IT'S A LOVE STORY 😭💖</h1>
+    <p>You just entered your Lover Era with me ✨</p>
+
+    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExMm0xenhxdTExMWw3dnczZ3ptczlhdm95Y3ZpemFhbHpqeXBmcXQ2NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/X5893XlD3N100vPez1/giphy.gif">
+</div>
+
+<!-- FOREVER TRANSITION SCREEN -->
+<div id="foreverScreen">
+    <h1>Forever Starts Now 💍✨</h1>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const mainBox = document.getElementById("mainBox");
+const successBox = document.getElementById("successBox");
+const foreverScreen = document.getElementById("foreverScreen");
+const music = document.getElementById("bgMusic");
+const mainGif = document.getElementById("mainGif");
+
+let yesSize = 1;
+let noAttempts = 0;
+
+document.body.addEventListener("click", () => {
+    music.play();
+}, { once: true });
+
+noBtn.addEventListener("mouseover", () => {
+
+    noAttempts++;
+
+    if (noAttempts >= 1) {
+        mainGif.src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXJsajEzNG94ZG9tMDlyY3Jxd3Y4bnhidThrMjAyNnNvZ2NoMmJqdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GRk3GLfzduq1NtfGt5/giphy.gif";
+    }
+
+    const x = Math.random() * 250 - 125;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+    yesSize += 0.25;
+    yesBtn.style.transform = `scale(${yesSize})`;
+});
+
+yesBtn.addEventListener("click", () => {
+    mainBox.classList.add("hidden");
+    successBox.classList.remove("hidden");
+    startSparkles();
+
+    // After 3 seconds, show Forever screen
+    setTimeout(() => {
+        foreverScreen.style.opacity = "1";
+        foreverScreen.style.pointerEvents = "auto";
+    }, 3000);
+});
+
+function startSparkles() {
+    setInterval(() => {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        const icons = ["💖","✨","🌸","💜","🌈"];
+        sparkle.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+
+        sparkle.style.left = Math.random() * window.innerWidth + "px";
+        sparkle.style.bottom = "0px";
+        sparkle.style.fontSize = Math.random() * 25 + 15 + "px";
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => {
+            sparkle.remove();
+        }, 6000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
